@@ -2,11 +2,12 @@
 from .base import * # noqa 
 from .base import env  # noqa
 
+from datetime import timedelta
 
 
 # ################# Security 
 
-SECRET_KEY = "django-insecure-bjp)78vk8e0hddyl+ot4+b=x*s63_pt7j&3vb$bplzxa!4t0r="
+SECRET_KEY = env.str("SECRET_KEY")
 
 DEBUG = True
 
@@ -36,13 +37,36 @@ MEDIA_ROOT = str(BASE_DIR / "mediafiles")
 ADMIN_URL = env("ADMIN_URL")
 
 
-# ################# DRF Settings 
+# ##################### DRF Settings 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
     ],
 }
 
+# ##################### JWT Settings
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=300),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+    "SIGNING_KEY": env("JWT_SIGNING_KEY"),
+    "ROTATE_REFRESH_TOKENS": False,  
+    "BLACKLIST_AFTER_ROTATION": True,
+    "USER_ID_FIELD": "id",
+    "USER_IF_CLAIM": "user_id",
+}
+
+# ##################### Auth Backends
+AUTHENTICATION_BACKENDS = [
+    "core_apps.users.auth_backend.EmailAndUsernameCredentialAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# ##################### Auth User Model
+AUTH_USER_MODEL = "users.CustomUser"
 
 
 # ################# Logging
