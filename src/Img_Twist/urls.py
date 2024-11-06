@@ -50,4 +50,7 @@ urlpatterns = [
     # Common App 
     path("api/v1/common/", include("core_apps.common.urls")),
     
+    # Users App 
+    path("api/v1/user/", include("core_apps.users.urls")),
+    
 ]

@@ -1,6 +1,6 @@
 
 from pathlib import Path
-from environ import Env 
+from environ import Env
 
 env = Env()
 
@@ -8,9 +8,9 @@ env = Env()
 ENVIRONMENT_TYPE = env.str("ENVIRONMENT_TYPE", default=".dev")
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-env.read_env(Path(str(BASE_DIR)) / f".envs/{ENVIRONMENT_TYPE}/.django") 
+env.read_env(Path(str(BASE_DIR)) / f".envs/{ENVIRONMENT_TYPE}/.django")
 env.read_env(Path(str(BASE_DIR)) / f".envs/{ENVIRONMENT_TYPE}/.postgres")
 
 
@@ -28,6 +28,7 @@ DJANGO_APPS = [
 
 THIRD_PARTH_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist", 
     "drf_yasg",
     "corsheaders",
 ]
@@ -36,12 +37,11 @@ LOCAL_APPS = [
     "core_apps.common",
     "core_apps.users",
     "core_apps.accounts",
-    "core_apps.products", 
-    "core_apps.es_search", 
+    "core_apps.products",
+    "core_apps.es_search",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTH_APPS + LOCAL_APPS
-
 
 
 MIDDLEWARE = [
@@ -74,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Img_Twist.wsgi.application"
 
-# DB for .dev 
+# DB for .dev
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -113,3 +113,4 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
