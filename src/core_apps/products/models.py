@@ -7,7 +7,7 @@ from core_apps.common.models import TimeStampModel
 class Category(TimeStampModel):
     """Model for Product Category"""
 
-    name = models.CharField(verbose_name=_("Category Name"), max_length=255)
+    name = models.CharField(verbose_name=_("Category Name"), max_length=255, db_index=True)
     description = models.TextField(verbose_name=_(
         "Category Description"), blank=True, null=True)
 
@@ -32,6 +32,12 @@ class Product(TimeStampModel):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField()
 
+    class Meta: 
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["name", "price"]),
+        ]
+    
     def __str__(self):
         return self.name
      
