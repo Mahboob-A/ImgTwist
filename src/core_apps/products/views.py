@@ -187,3 +187,77 @@ class ProductImageDeleteAPIView(APIView):
         
         logger.info(f"\nProduct Bulk Image deleted: {image_ids}")
         return Response({"status": "success", "detail": f"{images_delate_count} images deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class CategoryAPIView(APIView):
+    """Minimal CRUD operations for Category.
+    
+    NOTE: Just Minimal APIs for time constraints. 
+    """
+
+    def get(self, request, category_id=None):
+        """Retrieve a category or list of categories."""
+        
+        if category_id:
+            try:
+                category = Category.objects.get(id=category_id)
+                serializer = CategorySerializer(category)
+                return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+            except Category.DoesNotExist:
+                logger.error(f"\nCategory with category_id {category_id} does not exist.")
+                return Response({"status": "error", "detail": "Category not found."}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            categories = Category.objects.all()
+            serializer = CategorySerializer(categories, many=True)
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        """Create a new category."""
+        
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            logger.info(f"\nCategory '{serializer.validated_data['name']}' created successfully.")
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
+        
+        logger.error(f"\nError creating category: {e}")
+        return Response({"status": "error", "detail": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+ 
+    def patch(self, request, category_id=None):
+        """
+        Update an existing category.
+        """
+        try:
+            category = Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            logger.error(
+                f"\nCategory with category_id {category_id} not found for update.")
+            return Response({"status": "error", "detail": "Category not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CategorySerializer(category, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            logger.info(f"\nCategory with category_id {category_id} updated successfully.")
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+        
+        logger.error(f"\nError updating category: {category_id}: {e}")
+        return Response({"status": "error", "detail": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def delete(self, request, category_id=None):
+        """Delete a category."""
+        
+        try:
+            category = Category.objects.get(id=category_id)
+            category.delete()
+            
+            logger.info(f"\nCategory with category_id {category_id} deleted successfully.")
+            return Response({"status": "success", "detail": "Category deleted."}, status=status.HTTP_204_NO_CONTENT)
+        
+        except Category.DoesNotExist:
+            logger.error(f"Category with category_id {category_id} does not exist.")
+            return Response({"status": "error", "detail": "Category not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as e:
+            logger.error(f"Error deleting category: {e}")
+            return Response({"status": "error", "detail": "Something unexpected occured eleting category."}, status=status.HTTP_400_BAD_REQUEST)
