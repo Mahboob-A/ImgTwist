@@ -13,13 +13,13 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8001",  # Django Developement Server
-    "http://127.0.0.1:8081",  # Dockerizedd Django App with Nginx
+    "http://127.0.0.1:8000",  # Django Developement Server
+    "http://127.0.0.1:8080",  # Dockerizedd Django App with Nginx
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8001",  # Django Developement Server
-    "http://127.0.0.1:8081",  # Dockerizedd Django App with Nginx
+    "http://127.0.0.1:8000",  # Django Developement Server
+    "http://127.0.0.1:8080",  # Dockerizedd Django App with Nginx
 ]
 
 
@@ -34,6 +34,15 @@ MEDIA_ROOT = str(BASE_DIR / "mediafiles")
 
 
 ADMIN_URL = env("ADMIN_URL")
+
+
+# ################# DRF Settings 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}
+
 
 
 # ################# Logging

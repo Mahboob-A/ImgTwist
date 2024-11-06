@@ -11,6 +11,7 @@ mediafiles/
 staticfiles/
 install.txt
 install.txt/
+.vscode 
 
 # Distribution / packaging
 .Python
