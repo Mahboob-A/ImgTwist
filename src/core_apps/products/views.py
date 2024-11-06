@@ -7,10 +7,13 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework.generics import ListAPIView
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 from core_apps.products.models import Category, BrandName, Product, ProductImages
 from core_apps.products.serializers import CategorySerializer, BrandNameSerializer, ProductSerializer
 from core_apps.products.renderers import ProductJSONRenderer, ProductsJSONRenderer
+from core_apps.products.paginations import ProductsPageNumberPagination
 
 
 class ProductCreateUpdateDeleteAPIView(APIView):
@@ -19,6 +22,7 @@ class ProductCreateUpdateDeleteAPIView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     renderer_classes = [ProductJSONRenderer]
     permission_classes = [IsAuthenticated]
+    throttle_classes = [UserRateThrottle]
 
     def post(self, request):
         """Create a new product"""
@@ -68,7 +72,8 @@ class RetriveProductAPIView(APIView):
         the Retrive of Singel product and All products APIs are seprated.
     """
     renderer_classes = [ProductJSONRenderer]
-
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    
     def get(self, request, product_id=None):
         """Retrive a product provided the product_id else retrive all products"""
 
@@ -82,17 +87,22 @@ class RetriveProductAPIView(APIView):
         return Response({"status": "error", "detail": "Product ID is required"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-class RetriveProductListAPIView(APIView):
+class RetriveProductListAPIView(ListAPIView):
     """API View for All Products"""
 
     renderer_classes = [ProductsJSONRenderer]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    pagination_class = ProductsPageNumberPagination
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         """Retrive All Products"""
-
-        serializer = ProductSerializer(Product.objects.all(), many=True)
-        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+    
+        paginated_queryset = self.paginate_queryset(self.get_queryset())
+        serializer = self.get_serializer(paginated_queryset, many=True)
+        
+        return self.get_paginated_response({"status": "success", "data": serializer.data})
 
 
 class ProductImageDeleteAPIView(APIView):
@@ -103,6 +113,7 @@ class ProductImageDeleteAPIView(APIView):
     """
     renderer_classes = [ProductJSONRenderer]
     permission_classes = [IsAuthenticated]
+    throttle_classes = [UserRateThrottle]
 
     def delete(self, request, product_id=None):
         """Delete Product Images

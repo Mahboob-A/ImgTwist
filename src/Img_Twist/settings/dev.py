@@ -45,6 +45,10 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
     ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "5/minute",  
+        "user": "10/minute",  
+    }
 }
 
 # ##################### JWT Settings
