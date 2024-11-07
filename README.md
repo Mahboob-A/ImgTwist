@@ -40,6 +40,16 @@ NOTE: `https://imgtwist.algocode.site/api/v1` is the `prod_url` environment of P
 
 The doamin name `algocode.site` is my own domain. I have used this domain in my various projects. I the first time I bought this domain when I was building `Leetcode` like Online DSA Judge System. I have successfully built the Online Judge which can securely execute user submitted codes, evaluate it and and generate resutls like `WA`, `AC`, `TLE`, `RE`, `CE` etc. I have named the platform as `Algocode`. Algocode does not contain `any 3rd party APIs`. Everything is built from scratch. `Algocode` is a `microservices` solution and deployed on `AWS`. You can learn more about `Algocode` from the following link: `https://github.com/mahboob-a/algocode`. 
 
+### Quick Check: 
+
+- A very quick check for the app is the the `Swagger` or `Redoc` or the     `healthcheck` API
+
+    1. Swagger Doc: `https://imgtwist.algocode.site/swagger/`
+
+    2. Redoc Doc: `https://imgtwist.algocode.site/redoc/`
+
+    3. Healthcheck API: `https://imgtwist.algocode.site/api/v1/common/healthcheck/`
+
 ## Deployment Info
 
 - The dockerized solution is running on an EC2 instance. 
