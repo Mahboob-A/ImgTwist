@@ -1,0 +1,78 @@
+# 071124, Thursday, 07.00 am 
+
+services: 
+  dev-imgtwist-api: &dev_imgtwist_api
+    restart: always 
+    build: 
+      context: . 
+      dockerfile: ./docker/dev/django/Dockerfile
+    image: dev-imgtwist-api-image
+    volumes: 
+      - .:/home/imgtwist/app/
+      - dev_imgtwist_migrations:/home/imgtwist/app/core_apps/
+      - dev_imgtwist_static_volume:/home/imgtwist/app/staticfiles/
+      - dev_imgtwist_media_volume:/home/imgtwist/app/mediafiles/
+    env_file: 
+      - ./.envs/.dev/.django
+      - ./.envs/.dev/.postgres
+    depends_on: 
+      - postgres
+      - dev-imgtwist-redis
+    command: /start.sh
+    networks: 
+      - dev-imgtwist-backend-network
+
+  postgres: 
+    build: 
+      context: . 
+      dockerfile: ./docker/dev/postgres/Dockerfile
+    image: dev-imgtwist-postgres-image
+    volumes: 
+      - dev_imgtwist_pg_data:/var/lib/postgresql/data/
+      - dev_imgtwist_pg_data_backups:/backups/
+    env_file: 
+      - ./.envs/.dev/.postgres 
+    networks: 
+      - dev-imgtwist-backend-network
+
+  nginx: 
+    build: 
+      context: . 
+      dockerfile: ./docker/dev/nginx/Dockerfile
+    restart: always
+    image: dev-imgtwist-nginx-image
+    depends_on: 
+      - dev-imgtwist-api
+    volumes:
+      - dev_imgtwist_static_volume:/app/staticfiles/
+      - dev_imgtwist_media_volume:/app/mediafiles/
+    ports: 
+      - "8080:80"
+    networks: 
+      - dev-imgtwist-backend-network
+    
+  dev-imgtwist-redis: 
+    image: redis:7-alpine
+    container_name: dev-imgtwist-redis-container
+    mem_limit: 50m 
+    networks: 
+      - dev-imgtwist-backend-network
+
+  
+# TODO: Create the external network in server
+networks: 
+  dev-imgtwist-backend-network:
+    external: true 
+  
+# TODO: Create the external volume in server 
+volumes: 
+  dev_imgtwist_static_volume: {}
+  dev_imgtwist_media_volume: {}
+  dev_imgtwist_migrations: {}
+
+  dev_imgtwist_pg_data: {}
+  dev_imgtwist_pg_data_backups: {}
+
+
+
+  

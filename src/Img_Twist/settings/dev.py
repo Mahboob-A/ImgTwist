@@ -8,6 +8,8 @@ from datetime import timedelta
 # ################# Security 
 
 SECRET_KEY = env.str("SECRET_KEY")
+DJANGO_APP_PORT = env("DJANGO_APP_PORT")
+
 
 DEBUG = True
 
