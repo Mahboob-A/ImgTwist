@@ -1,0 +1,17 @@
+.idea
+venv
+venv/
+.gitignore
+.vscode 
+htmlcov/
+install.txt
+install.txt/
+mediafiles/
+staticfiles/
+db.sqlite3
+db.sqlite3-journal
+
+**/*.pyc
+**/__pycache__
+**/migrations/*.py
+!**/migrations/__init__.py

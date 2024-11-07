@@ -2,6 +2,7 @@ import logging
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
 
 
 from rest_framework.views import APIView
@@ -162,7 +163,9 @@ class ProductImageDeleteAPIView(APIView):
                 return Response({"status": "success", "detail": "Image deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
             except ProductImages.DoesNotExist:
                 return Response({"status": "error", "detail": f"Image not found with the ID {image_id}"}, status=status.HTTP_404_NOT_FOUND)
-
+            except (ValidationError, ValueError) as e:
+                return Response({"status": "error", "detail": e.message}, status=status.HTTP_400_BAD_REQUEST)
+            
         if image_ids:
             # ForeignKey: Product with ProductImages
             existing_images_ids = set(
@@ -185,8 +188,8 @@ class ProductImageDeleteAPIView(APIView):
             if images_delate_count == 0:
                 return Response({"status": "error", "detail": f"No images found with the IDs {image_ids} to Delete"}, status=status.HTTP_404_NOT_FOUND)
         
-        logger.info(f"\nProduct Bulk Image deleted: {image_ids}")
-        return Response({"status": "success", "detail": f"{images_delate_count} images deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+            logger.info(f"\nProduct Bulk Image deleted: {image_ids}")
+            return Response({"status": "success", "detail": f"{images_delate_count} images deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
 class CategoryAPIView(APIView):
@@ -242,7 +245,7 @@ class CategoryAPIView(APIView):
         
         logger.error(f"\nError updating category: {category_id}: {e}")
         return Response({"status": "error", "detail": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
+    
 
     def delete(self, request, category_id=None):
         """Delete a category."""

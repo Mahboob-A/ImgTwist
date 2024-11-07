@@ -74,15 +74,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "Img_Twist.wsgi.application"
 
 # DB for .dev
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # TODO: change env type to .prod when deploying to production
-# DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES = {"default": env.db("DATABASE_URL")}
 
 
 AUTH_PASSWORD_VALIDATORS = [
