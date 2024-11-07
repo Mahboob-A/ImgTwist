@@ -31,7 +31,14 @@ NOTE: `https://imgtwist.algocode.site/api/v1` is the `prod_url` environment of P
     - email: `social.mehboob@gmail.com` (just a demo email)
     - password: demopwd@111
 
+5. Nginx Proxy Manager URL: `https://imgtwist-npm.algocode.site/`
 
+6. Portainer URL: `https://imgtwist-portainer.algocode.site`
+    - Portainer is used to manage the docker containers.
+
+#### NOTE: 
+
+The doamin name `algocode.site` is my own domain. I have used this domain in my various projects. I the first time I bought this domain when I was building `Leetcode` like Online DSA Judge System. I have successfully built the Online Judge which can securely execute user submitted codes, evaluate it and and generate resutls like `WA`, `AC`, `TLE`, `RE`, `CE` etc. I have named the platform as `Algocode`. Algocode does not contain `any 3rd party APIs`. Everything is built from scratch. `Algocode` is a `microservices` solution and deployed on `AWS`. You can learn more about `Algocode` from the following link: `https://github.com/mahboob-a/algocode`. 
 
 ## Deployment Info
 
