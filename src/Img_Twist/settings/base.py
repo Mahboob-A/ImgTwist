@@ -51,7 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "core_apps.common.RateLimiterMiddleware.TokenBucketRateLimitMiddleware"
+    # "core_apps.common.RateLimiterMiddleware.TokenBucketRateLimitMiddleware"  # do not enforce the rate limit on dev 
 ]
 
 ROOT_URLCONF = "Img_Twist.urls"

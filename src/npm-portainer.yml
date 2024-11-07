@@ -1,0 +1,44 @@
+
+# docker compose -p dev_imgtwist_backend_api -f npm_portainer.yml up -d --remove-orphans 
+# docker compose -p dev_imgtwist_backend_api -f npm_portainer.yml down
+
+services:
+  app:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - dev_img_twist_npm_data:/data  
+      - dev_img_twist_npm_letsencrypt_data:/etc/letsencrypt
+    networks:
+      - dev-imgtwist-backend-network
+      
+  portainer:
+    image: portainer/portainer-ce:latest 
+    privileged: true
+    volumes:
+      - dev_img_twist_portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports: 
+      - "8000:8000"
+      - "9443:9443"
+      - "9000:9000"
+    restart: always
+    networks:
+      - dev-imgtwist-backend-network
+
+
+
+# TODO Create the Network in the EC2 Server. 
+networks:
+  dev-imgtwist-backend-network:
+   external: true
+
+volumes:
+  dev_img_twist_npm_data: {}
+  dev_img_twist_npm_letsencrypt_data: {}
+  dev_img_twist_portainer_data: {}
+
