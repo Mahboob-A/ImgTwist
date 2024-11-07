@@ -64,42 +64,40 @@ class TokenBucketRateLimitMiddleware:
         rate_limit_key = f"api_rate_limit:{client_ip}"
 
         try:
-            tokens, last_request_time = redis_client.hmget(rate_limit_key, "tokens", "last_request_time")
+            bucket = redis_client.get(rate_limit_key)
         except redis.ConnectionError as err:
             logger.error(
                 f"\n[XX Rate Limit Redis Error XX]: Redis connection failed. Falling bak to local app cache.\nException: {err}"
             )
             bucket = cache.get(rate_limit_key)
-            tokens = bucket.get("tokens") if bucket else None 
-            last_request_time = bucket.get("last_request_time") if bucket else None 
-
+            
         curr_time = int(time() * 1000)  # in milis 
 
-        if tokens is None or last_request_time is None:
-            tokens = self.bucket_size["max_tokens"]
-            last_request_time = curr_time
-        else: 
-                elapsed_time = (curr_time - int(last_request_time)) / 1000
-                new_tokens = elapsed_time * self.bucket_size["refill_rate"]
-                tokens = min(self.bucket_size["max_tokens"], new_tokens + float(tokens))
-                last_request_time = curr_time
+        if bucket is None:
+            bucket = {
+                "tokens": self.bucket_size["max_tokens"],
+                "last_request_time": curr_time,
+            }
+        else:
+            bucket = json.loads(bucket)
+            elapsed_time = curr_time - bucket["last_request_time"]
+            new_tokens = elapsed_time * self.bucket_size["refill_rate"]
+            bucket["tokens"] = min(
+                self.bucket_size["max_tokens"], new_tokens + bucket["tokens"]
+            )
+            bucket["last_request_time"] = curr_time
 
-        if tokens >= 1:
-            tokens -= 1 
-            
-            # how long it will take to add max_tokens when a single tokan is added in every refil_rater frequency (millis)
-            expiration = int(self.bucket_size["max_tokens"] * (1 / self.bucket_size["refill_rate"]))
+        if bucket["tokens"] >= 1:
+            bucket["tokens"] -= 1
             try:
-                redis_client.hmset(rate_limit_key, {"tokens": tokens, "last_request_time": curr_time})
-                redis_client.expire(rate_limit_key, expiration)
+                redis_client.set(rate_limit_key, json.dumps(bucket), ex=60)
             except redis.ConnectionError as err:
                 logger.error(
-                    f"\n[XX Rate Limit Redis Error XX]: Redis connection failed. Falling bak to local app cache.\nException: {err}"
+                    f"\n[XX Redis Error XX]: Redis connection failed. Falling bak to local app cache.\nException: {err}"
                 )
-                cache.set(rate_limit_key, {"tokens": tokens, "last_request_time": curr_time}, timeout=expiration)
+                cache.set(rate_limit_key, json.dumps(bucket), timeout=60)
         else:
-            wait_time = (1 - tokens) / self.bucket_size["refill_rate"] / 1000
-            reset_time = int(curr_time + wait_time * 1000)
+            wait_time = (1 - bucket["tokens"]) / self.bucket_size["refill_rate"] / 1000
 
             logger.warning(f"[XX Rate Limit Warning XX]: Rate Limit Exceed for IP: {client_ip}")
             response = JsonResponse(
@@ -110,8 +108,8 @@ class TokenBucketRateLimitMiddleware:
                 status=429,
             )
             response["X-RateLimit-Limit"] = str(self.bucket_size["max_tokens"])
-            response["X-RateLimit-Remaining"] = str(int(tokens))
-            response["X-RateLimit-Reset"] = str(reset_time)
+            response["X-RateLimit-Remaining"] = str(bucket["tokens"])
+            response["X-RateLimit-Reset"] = str(int(bucket["last_request_time"] + 60))
 
             return response
 
