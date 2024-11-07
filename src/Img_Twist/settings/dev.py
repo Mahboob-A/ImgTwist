@@ -39,6 +39,20 @@ MEDIA_ROOT = str(BASE_DIR / "mediafiles")
 ADMIN_URL = env("ADMIN_URL")
 
 
+# ################# Local Cache
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake', 
+        'TIMEOUT': 300, 
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,  
+        },
+    }
+}
+
+
 # ##################### DRF Settings 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
