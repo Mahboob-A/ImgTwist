@@ -1,0 +1,568 @@
+{
+	"info": {
+		"_postman_id": "876159a1-3a9f-4a52-be4e-3b3345d7968b",
+		"name": "Img_Twist Docker Production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33416795",
+		"_collection_link": "https://mahboob-1-team.postman.co/workspace/Img_Twist~9985fdf8-5d3e-4d18-9784-fc8ff4147d76/collection/33416795-876159a1-3a9f-4a52-be4e-3b3345d7968b?action=share&source=collection_link&creator=33416795"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Healthcheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/common/healthcheck/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"common",
+								"healthcheck",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Accounts",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Mahboob\", \n    \"last_name\": \"Alam\", \n    \"username\": \"yurious\", \n    \"email\": \"mahboob@gmail.com\", \n    \"password\": \"123456@1\", \n    \"password2\": \"123456@1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{prod_url}}/users/signup/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"users",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credential\": \"yurious\",   \n    \"password\": \"123456@1\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{prod_url}}/users/login/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"users",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwOTc5Mjc0LCJpYXQiOjE3MzA5NjEyNzQsImp0aSI6ImFiODllMjE5N2U1MjRjYWZiM2NjZGEyMWQwOThkNmJiIiwidXNlcl9pZCI6IjBjODAyNjdkLWRhMGItNDg1My05ZjJhLWYwMjhlNzdiZDI1NSIsInVzZXJfZGF0YSI6eyJ1c2VybmFtZSI6Inl1cmlvdXMzIiwiZW1haWwiOiJtYWhib29iQGdtYWlsLmNvbSJ9fQ.Q7q21H5tAG0BJZjyyZepQ_6bZArU90KlB2cbJzMkzYg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMzU1MzI3NCwiaWF0IjoxNzMwOTYxMjc0LCJqdGkiOiI2ZTRiNzBmY2M1MGI0YzRkYjBkYzFkMjU5YmY0N2E3YSIsInVzZXJfaWQiOiIwYzgwMjY3ZC1kYTBiLTQ4NTMtOWYyYS1mMDI4ZTc3YmQyNTUiLCJ1c2VyX2RhdGEiOnsidXNlcm5hbWUiOiJ5dXJpb3VzMyIsImVtYWlsIjoibWFoYm9vYkBnbWFpbC5jb20ifX0.ClkdA5gaqX-mhvNjOSeEtuGdbfWiKvXASknxgyx0NyU\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{prod_url}}/users/logout/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"users",
+								"logout",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwODk2MTg2LCJpYXQiOjE3MzA4NzgxODYsImp0aSI6Ijg3MjA1OTZiODhiOTRkZGI4YzRkMGE4MzM0ZjhlOTFjIiwidXNlcl9pZCI6IjUwMWZkMDVlLTYyOGYtNDExNC05OTU4LTA5YzBjYTJjZWIwYyIsInVzZXJfZGF0YSI6eyJ1c2VybmFtZSI6Inl1cmlvdXMyIiwiZW1haWwiOiJtYWhib29iMkBnbWFpbC5jb20ifX0.k9j2hh4N8F9sG_0rQ8OiayI8muIyllk6fN8Hi7HXy4Y",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get Product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/products/product/9ee1a2bc-62ee-4a19-b45d-de46f5c1c738/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"product",
+								"9ee1a2bc-62ee-4a19-b45d-de46f5c1c738",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Products",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/products/all/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "RealMe XT 5G",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "A brand new smartphone 5G",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1003",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "103",
+									"type": "text"
+								},
+								{
+									"key": "uploaded_images",
+									"type": "file",
+									"src": "/home/mehboob/Pictures/fb/nijrke_sokto_kore_gore_nio_image.jpg"
+								},
+								{
+									"key": "uploaded_images",
+									"type": "file",
+									"src": "/home/mehboob/Pictures/user-image/anime_id_`1.jpeg"
+								},
+								{
+									"key": "uploaded_images",
+									"type": "file",
+									"src": "/home/mehboob/Pictures/tom_serious.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{prod_url}}/products/create/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"create",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Details",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Lumia Xeperia 892 ",
+									"type": "text"
+								},
+								{
+									"key": "uploaded_images",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{prod_url}}/products/update/bac726de-da97-472a-80bb-f2e9a742a5fe/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"update",
+								"bac726de-da97-472a-80bb-f2e9a742a5fe",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/products/delete/4420a5c0-c0af-4743-bd46-db4b0bd78102/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"delete",
+								"4420a5c0-c0af-4743-bd46-db4b0bd78102",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxMDIzNTEwLCJpYXQiOjE3MzEwMDU1MTAsImp0aSI6IjJmYmU4ZDA5NDVlMjRjNmVhMDRkODlkMjNjYWJlMDY0IiwidXNlcl9pZCI6ImNmNDI4YjYwLTZhY2UtNDkyZS1iN2MzLTcyY2EwNzU0M2RiZCIsInVzZXJfZGF0YSI6eyJ1c2VybmFtZSI6Inl1cmlvdXMiLCJlbWFpbCI6Im1haGJvb2JAZ21haWwuY29tIn19.QPp5irbPMYItCCD5BKCNA2biTaXRzJNPzB23jJL0Yqs",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Product Image",
+			"item": [
+				{
+					"name": "Product Image Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"image_id\": \"b41849f1-222e-4e98-9e04-5b6b01c961aa\"  \n    \"image_ids\": [\"2dec2bd0-a8e0-4c56-8f8c-3f06232e0ea4\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{prod_url}}/products/delete/616c87a1-1eac-46c4-8a10-60911c1c2a26/product-image-delete/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"delete",
+								"616c87a1-1eac-46c4-8a10-60911c1c2a26",
+								"product-image-delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwOTc5NTg0LCJpYXQiOjE3MzA5NjE1ODQsImp0aSI6IjlhYmVjYjE0MGIyODRjNDQ5NDQwNDcxYjlmM2ZjNDhlIiwidXNlcl9pZCI6IjBjODAyNjdkLWRhMGItNDg1My05ZjJhLWYwMjhlNzdiZDI1NSIsInVzZXJfZGF0YSI6eyJ1c2VybmFtZSI6Inl1cmlvdXMzIiwiZW1haWwiOiJtYWhib29iQGdtYWlsLmNvbSJ9fQ.4yQwsjCuJoNF-HiU8yrRa5Ar7sG-cGtd5G_XMd97uXg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/products/category/495e46d6-2079-4250-9acb-cf5998a4b440/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"495e46d6-2079-4250-9acb-cf5998a4b440",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/products/category/all/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"all",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Electronics 2\",\n    \"description\": \"Good description 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{prod_url}}/products/category/create/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"create",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"hi 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{prod_url}}/products/category/update/a3817c3d-6869-4d50-9c5e-955758c054e1/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"update",
+								"a3817c3d-6869-4d50-9c5e-955758c054e1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{prod_url}}/products/category/delete/a3817c3d-6869-4d50-9c5e-955758c054e1/",
+							"host": [
+								"{{prod_url}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"delete",
+								"a3817c3d-6869-4d50-9c5e-955758c054e1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

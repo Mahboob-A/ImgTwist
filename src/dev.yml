@@ -35,21 +35,23 @@ services:
     networks: 
       - dev-imgtwist-backend-network
 
-  nginx: 
-    build: 
-      context: . 
-      dockerfile: ./docker/dev/nginx/Dockerfile
-    restart: always
-    image: dev-imgtwist-nginx-image
-    depends_on: 
-      - dev-imgtwist-api
-    volumes:
-      - dev_imgtwist_static_volume:/app/staticfiles/
-      - dev_imgtwist_media_volume:/app/mediafiles/
-    ports: 
-      - "8080:80"
-    networks: 
-      - dev-imgtwist-backend-network
+#  Nginx is for local only. As the project is live on server, (although the dev version for testing). 
+#  Uncomment Nginx for local development with Docker. 
+  # nginx: 
+  #   build: 
+  #     context: . 
+  #     dockerfile: ./docker/dev/nginx/Dockerfile
+  #   restart: always
+  #   image: dev-imgtwist-nginx-image
+  #   depends_on: 
+  #     - dev-imgtwist-api
+  #   volumes:
+  #     - dev_imgtwist_static_volume:/app/staticfiles/
+  #     - dev_imgtwist_media_volume:/app/mediafiles/
+  #   ports: 
+  #     - "8080:80"
+  #   networks: 
+  #     - dev-imgtwist-backend-network
     
   dev-imgtwist-redis: 
     image: redis:7-alpine
