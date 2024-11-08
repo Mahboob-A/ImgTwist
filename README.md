@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+<br/>
+<div align="center">
+<a href="https://github.com/Mahboob-A/imgtwist/">
+<img src="https://github.com/user-attachments/assets/7c0e6379-467e-44ac-a9c9-ce1b5c6b10a5" alt="ImgTwist Logo" width="700" height="400">
+</a>
+<h3 align="center">ImgTwist - Image Hosting Platform for All Your Needs</h3>
+<p align="center">
+A Generalized Image Hosting Platform Just Like Image Twist!
+<br/>
+<br/>
+<a href="https://github.com/Mahboob-A/imgtwist/"><strong>Read the blog »</strong></a>
+<br/>
+<br/>
+<a href="https://github.com/Mahboob-A/imgtwist/">ImgTwist</a>  
 
-<h1>ImgTwist</h1>
-<h3>Image Showcase Platform for All Your Needs</h3>
+</p>
+</div>
 
 <hr>
-
 
 <h3>Key Features</h3>
 <ul>
@@ -46,6 +52,7 @@
         <li>Email: <code>social.mehboob@gmail.com</code></li>
         <li>Password: <code>demopwd@111</code></li>
     </ul>
+    <li><strong>Nginx Proxy Manager:</strong> <a href="https://imgtwist-npm.algocode.site/">https://imgtwist-npm.algocode.site/</a></li>
     <li><strong>Portainer for Docker Management:</strong> <a href="https://imgtwist-portainer.algocode.site/">https://imgtwist-portainer.algocode.site/</a></li>
 </ul>
 
@@ -109,5 +116,4 @@
     </tbody>
 </table>
 
-</body>
-</html>
+
