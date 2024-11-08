@@ -1,57 +1,113 @@
-# ImgTwist
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h1>ImgTwist</h1>
+<h3>Image Showcase Platform for All Your Needs</h3>
+
+<hr>
 
 
-### Image Showcase Platform for All Your Needs
+<h3>Key Features</h3>
+<ul>
+    <li><strong>Rate Limiting:</strong> Implemented using the Token Bucket Algorithm through Django Middleware. Check out the <code>Middleware</code> section in <code>core_apps.common</code> for details. 
+        <em>(Note: Rate limiting is currently implemented but not enforced on a per-app basis.)</em></li>
+    <li><strong>Postman Testing:</strong> Import the provided Postman Collection, set up any necessary environment variables, and test all API functionalities.</li>
+</ul>
 
+<hr>
 
-## Temporary Readme Below: Just a Temporary Readme, will be removed with Update Readme. 
+<h3>Application Links</h3>
 
-- Just a temporary readme, will be removed soon with update readme.
+<h4>Production URL</h4>
+<ul>
+    <li><strong>Main Application:</strong> <a href="https://imgtwist.algocode.site/">ImgTwist - Main Django App</a></li>
+    <ul>
+        <li><strong>API Base URL:</strong> <a href="https://imgtwist.algocode.site/api/v1">https://imgtwist.algocode.site/api/v1</a> 
+        <br><em>(Note: This should be set as the <code>prod_url</code> environment variable in Postman if not automatically detected)</em></li>
+    </ul>
+</ul>
 
-- A YT video will be added soon with the full documentation soon. 
+<h4>API Documentation</h4>
+<ul>
+    <li><strong>Swagger Documentation:</strong> <a href="https://imgtwist.algocode.site/swagger/">https://imgtwist.algocode.site/swagger/</a></li>
+    <li><strong>Redoc Documentation:</strong> <a href="https://imgtwist.algocode.site/redoc/">https://imgtwist.algocode.site/redoc/</a></li>
+</ul>
 
-- Rate Limiting implemented with Token Bucket Algorithm using Django Middleware 
-   is implemented, but currently not enforced app wise. Please refer to the `Middleware` section or `core_apps.common` app.  
+<h4>Administrative Portals</h4>
+<ul>
+    <li><strong>Django Admin:</strong> <a href="https://imgtwist.algocode.site/imgtwist-admin/">https://imgtwist.algocode.site/imgtwist-admin/</a></li>
+    <ul>
+        <li><strong>Demo Login:</strong></li>
+        <li>Email: <code>social.mehboob@gmail.com</code></li>
+        <li>Password: <code>demopwd@111</code></li>
+    </ul>
+    <li><strong>Portainer for Docker Management:</strong> <a href="https://imgtwist-portainer.algocode.site/">https://imgtwist-portainer.algocode.site/</a></li>
+</ul>
 
-### You can test all the functionality of the app by using the following URLS:
+<hr>
 
-- You just need to copy the Postman Collections (see above), import on your postman, setup the environment variable if needed, and then you can test the APIs.
+<h3>Quick Health Check Options</h3>
+<ul>
+    <li><strong>Swagger:</strong> <a href="https://imgtwist.algocode.site/swagger/">https://imgtwist.algocode.site/swagger/</a></li>
+    <li><strong>Redoc:</strong> <a href="https://imgtwist.algocode.site/redoc/">https://imgtwist.algocode.site/redoc/</a></li>
+    <li><strong>Healthcheck API:</strong> <a href="https://imgtwist.algocode.site/api/v1/common/healthcheck/">https://imgtwist.algocode.site/api/v1/common/healthcheck/</a></li>
+</ul>
 
-#### Production URL: 
+<hr>
 
-1. Main Django APP: https://imgtwist.algocode.site/
+<h3>Deployment Details</h3>
+<ul>
+    <li>The application is a fully dockerized solution running on an EC2 instance with SSL-secured URLs for all endpoints.</li>
+</ul>
 
-NOTE: `https://imgtwist.algocode.site/api/v1` is the `prod_url` environment of Postman. If this did not automatically set on postman, please add this environment variable on `Environment` Section of Postman. 
+<hr>
 
-2. Swagger Doc: `https://imgtwist.algocode.site/swagger/`
+<h3>About <code>Algocode.site</code></h3>
+<p>The domain <code>algocode.site</code> serves multiple projects. It was initially purchased for an Online DSA Judge System project (<code>Algocode</code>) that simulates platforms like LeetCode. <code>Algocode</code> was designed to securely execute and evaluate user-submitted code, generate results (<code>WA</code>, <code>AC</code>, <code>TLE</code>, <code>RE</code>, <code>CE</code>, etc.), and provide a microservices architecture deployed on AWS. 
+<a href="https://github.com/mahboob-a/algocode">Learn more here</a>.</p>
 
-3. Redoc Doc: `https://imgtwist.algocode.site/redoc/`
+<hr>
 
-4. Django Admin: `https://imgtwist.algocode.site/imgtwist-admin/` 
-    - email: `social.mehboob@gmail.com` (just a demo email)
-    - password: demopwd@111
+<h2>YouTube Demonstration</h2>
+<p><a href="https://youtu.be/O0axE83WZs0" target="_blank">Watch the demonstration on YouTube</a></p>
 
-5. Nginx Proxy Manager URL: `https://imgtwist-npm.algocode.site/`
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>00:00</td><td>Introduction</td></tr>
+        <tr><td>02:20</td><td>Feature Explanation</td></tr>
+        <tr><td>03:05</td><td>Postman API Testing Begin</td></tr>
+        <tr><td>03:50</td><td>Healthcheck API</td></tr>
+        <tr><td>03:55</td><td>Production URL with SSL</td></tr>
+        <tr><td>04:20</td><td>Algocode Introduction - An Online Judge in Microservices</td></tr>
+        <tr><td>06:00</td><td>User Management APIs</td></tr>
+        <tr><td>07:50</td><td>Product APIs (Get Product, All Products, Create Product, Update Product, Delete Product, Multi Image Upload)</td></tr>
+        <tr><td>12:46</td><td>Bloopers</td></tr>
+        <tr><td>12:50</td><td>Serve Image with Sub-Domain with SSL</td></tr>
+        <tr><td>16:45</td><td>Product Image APIs (Multi Image Delete)</td></tr>
+        <tr><td>20:20</td><td>Category APIs</td></tr>
+        <tr><td>21:00</td><td>ImgTwist Admin Portal</td></tr>
+        <tr><td>21:15</td><td>Swagger API Doc</td></tr>
+        <tr><td>21:33</td><td>Redoc API Doc</td></tr>
+        <tr><td>21:40</td><td>Portainer Portal for Docker Management</td></tr>
+        <tr><td>23:10</td><td>AES EC2 Server SSH</td></tr>
+        <tr><td>24:20</td><td>Inside EC2 Server</td></tr>
+        <tr><td>24:45</td><td>List Docker Containers</td></tr>
+        <tr><td>25:10</td><td>Exec Django Container</td></tr>
+        <tr><td>25:40</td><td>Deployment Script</td></tr>
+        <tr><td>26:00</td><td>Outro</td></tr>
+    </tbody>
+</table>
 
-6. Portainer URL: `https://imgtwist-portainer.algocode.site`
-    - Portainer is used to manage the docker containers.
-
-#### NOTE: 
-
-The doamin name `algocode.site` is my own domain. I have used this domain in my various projects. I the first time I bought this domain when I was building `Leetcode` like Online DSA Judge System. I have successfully built the Online Judge which can securely execute user submitted codes, evaluate it and and generate resutls like `WA`, `AC`, `TLE`, `RE`, `CE` etc. I have named the platform as `Algocode`. Algocode does not contain `any 3rd party APIs`. Everything is built from scratch. `Algocode` is a `microservices` solution and deployed on `AWS`. You can learn more about `Algocode` from the following link: `https://github.com/mahboob-a/algocode`. 
-
-### Quick Check: 
-
-- A very quick check for the app is the the `Swagger` or `Redoc` or the     `healthcheck` API
-
-    1. Swagger Doc: `https://imgtwist.algocode.site/swagger/`
-
-    2. Redoc Doc: `https://imgtwist.algocode.site/redoc/`
-
-    3. Healthcheck API: `https://imgtwist.algocode.site/api/v1/common/healthcheck/`
-
-## Deployment Info
-
-- The dockerized solution is running on an EC2 instance. 
-- The URLs are fully secure i.e. has SSL certificate. 
-
+</body>
+</html>
