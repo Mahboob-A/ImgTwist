@@ -211,7 +211,7 @@ class ProductImageDeleteAPIView(APIView):
 
         image_id = request.data.get("image_id", None)
         image_ids = request.data.get("image_ids", [])
-        if not image_id or not image_ids:
+        if not image_id and not image_ids:
             return Response(
                 {
                     "status": "error",
