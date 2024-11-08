@@ -8,18 +8,18 @@ class HealthCheckTests(APITestCase):
 
     def setUp(self):
         """Set up data for the tests."""
-        
+
         self.url = reverse("healthcheck")
 
     def test_healthcheck_success_status(self):
         """Test that healthcheck endpoint returns 200 OK status."""
-        
+
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_healthcheck_response_content(self):
         """Test that healthcheck endpoint returns correct JSON response."""
-        
+
         response = self.client.get(self.url)
         self.assertEqual(response.data, {"status": "OK"})
 
@@ -33,5 +33,5 @@ class HealthCheckTests(APITestCase):
 
     def _is_authenticated(self):
         """Helper method to check if current client is authenticated."""
-        
+
         return hasattr(self.client, "credentials") and bool(self.client.credentials())

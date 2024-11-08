@@ -1,4 +1,3 @@
-
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 from rest_framework import serializers
@@ -73,7 +72,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        
+
         # additional user details to the token payload
         token["user_data"] = {
             "username": user.username,

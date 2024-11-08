@@ -1,4 +1,3 @@
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
@@ -67,7 +66,6 @@ class UserLoginAPI(APIView):
     renderer_classes = [UserJSONRenderer]
 
     def post(self, request):
-
         # Credential can be either "email" or "username"
         credential = request.data.get("credential", None)
         password = request.data.get("password", None)
@@ -84,8 +82,9 @@ class UserLoginAPI(APIView):
             )
 
         # Custom auth backend is used.
-        user = authenticate(request=request, email=credential,
-                            username=credential, password=password)
+        user = authenticate(
+            request=request, email=credential, username=credential, password=password
+        )
         if user:
             token = CustomTokenObtainPairSerializer.get_token(user)
             return Response(
@@ -118,7 +117,7 @@ class UserLogOutAPIView(APIView):
             if not refresh_token:
                 return Response(
                     {"status": "error", "detail": "Refresh Token is not provided."},
-                    status=status.HTTP_400_BAD_REQUEST
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
             token = RefreshToken(refresh_token)
             token.blacklist()

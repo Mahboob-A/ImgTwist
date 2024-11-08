@@ -44,7 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name=_("Phone Number"),
         validators=[phone_regex],
         max_length=15,
-        unique=True, 
+        unique=True,
         blank=True,
         null=True,
     )

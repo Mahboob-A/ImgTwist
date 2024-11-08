@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    
+
     # TODO: change env type to .prod when deploying to production
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Img_Twist.settings.dev")
     try:

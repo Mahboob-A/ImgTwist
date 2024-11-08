@@ -26,4 +26,3 @@ class UserJSONRenderer(JSONRenderer):
             return super(UserJSONRenderer, self).render(data)
 
         return json.dumps({"status_code": status_code, "user": data})
-
