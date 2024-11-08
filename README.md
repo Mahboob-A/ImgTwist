@@ -23,6 +23,7 @@ A Generalized Image Hosting Platform Just Like Image Twist!
     <li><strong>Rate Limiting:</strong> Implemented using the Token Bucket Algorithm through Django Middleware. Check out the <code>Middleware</code> section in <code>core_apps.common</code> for details. 
         <em>(Note: Rate limiting is currently implemented but not enforced on a per-app basis.)</em></li>
     <li><strong>Postman Testing:</strong> Import the provided Postman Collection, set up any necessary environment variables, and test all API functionalities.</li>
+    <li><strong>Pull Requests (PRs):</strong> All the development is done through proper PRs. Please review the Closed PRs for Understanding the work has been done on the project.</li>
 </ul>
 
 <hr>
