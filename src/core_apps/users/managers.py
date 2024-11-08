@@ -28,7 +28,6 @@ class CustomUserManager(BaseUserManager):
             raise ValidationError(_("Please provide a valid email address.")) from e
 
     def _create_user(self, first_name, last_name, email, password, **extra_fields):
-
         self._validate_fields(
             first_name=first_name, last_name=last_name, password=password
         )
@@ -40,7 +39,7 @@ class CustomUserManager(BaseUserManager):
         )
 
         hashed_password = make_password(password=password)
-        
+
         user.password = hashed_password
         # user.set_password(raw_password=password)
 
@@ -56,7 +55,7 @@ class CustomUserManager(BaseUserManager):
             last_name=last_name,
             email=email,
             password=password,
-            **extra_fields
+            **extra_fields,
         )
 
     def create_superuser(self, first_name, last_name, email, password, **extra_fields):
@@ -74,5 +73,5 @@ class CustomUserManager(BaseUserManager):
             last_name=last_name,
             email=email,
             password=password,
-            **extra_fields
+            **extra_fields,
         )

@@ -1,5 +1,5 @@
-
 from pathlib import Path
+
 from environ import Env
 
 env = Env()
@@ -28,7 +28,7 @@ DJANGO_APPS = [
 
 THIRD_PARTH_APPS = [
     "rest_framework",
-    "rest_framework_simplejwt.token_blacklist", 
+    "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",
     "corsheaders",
 ]
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "core_apps.common.RateLimiterMiddleware.TokenBucketRateLimitMiddleware"  # do not enforce the rate limit on dev 
+    # "core_apps.common.RateLimiterMiddleware.TokenBucketRateLimitMiddleware"  # do not enforce the rate limit on dev
 ]
 
 ROOT_URLCONF = "Img_Twist.urls"
@@ -113,4 +113,3 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-

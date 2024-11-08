@@ -1,20 +1,18 @@
-
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.db import IntegrityError
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.exceptions import ValidationError
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
-
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
 
-from core_apps.users.serializers import UserRegistrationAPISerializer
 from core_apps.users.renderers import UserJSONRenderer
-from core_apps.users.serializers import CustomTokenObtainPairSerializer
+from core_apps.users.serializers import (
+    CustomTokenObtainPairSerializer,
+    UserRegistrationAPISerializer,
+)
 
 
 class UserRegistrationAPI(APIView):
@@ -67,7 +65,6 @@ class UserLoginAPI(APIView):
     renderer_classes = [UserJSONRenderer]
 
     def post(self, request):
-
         # Credential can be either "email" or "username"
         credential = request.data.get("credential", None)
         password = request.data.get("password", None)
@@ -84,8 +81,9 @@ class UserLoginAPI(APIView):
             )
 
         # Custom auth backend is used.
-        user = authenticate(request=request, email=credential,
-                            username=credential, password=password)
+        user = authenticate(
+            request=request, email=credential, username=credential, password=password
+        )
         if user:
             token = CustomTokenObtainPairSerializer.get_token(user)
             return Response(
@@ -118,7 +116,7 @@ class UserLogOutAPIView(APIView):
             if not refresh_token:
                 return Response(
                     {"status": "error", "detail": "Refresh Token is not provided."},
-                    status=status.HTTP_400_BAD_REQUEST
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
             token = RefreshToken(refresh_token)
             token.blacklist()

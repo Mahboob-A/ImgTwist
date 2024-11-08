@@ -1,18 +1,16 @@
-from django.db import models
+import uuid
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
-    PermissionsMixin,
     Group,
     Permission,
+    PermissionsMixin,
 )
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-
-import uuid
 
 from core_apps.users.managers import CustomUserManager
 
@@ -44,7 +42,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name=_("Phone Number"),
         validators=[phone_regex],
         max_length=15,
-        unique=True, 
+        unique=True,
         blank=True,
         null=True,
     )

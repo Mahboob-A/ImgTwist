@@ -6,7 +6,7 @@ from core_apps.users.models import CustomUser
 
 class CustomUserAdmin(BaseUserAdmin):
     """Custom User Admin"""
-    
+
     list_display = [
         "id",
         "username",
@@ -54,5 +54,6 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields = ["email", "username"]
     ordering = ["email", "username"]
     filter_horizontal = []
+
 
 admin.site.register(CustomUser, CustomUserAdmin)

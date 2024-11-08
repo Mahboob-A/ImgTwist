@@ -1,12 +1,12 @@
+import json
+import logging
 from time import time
 from typing import Any
-from django.http import JsonResponse
+
+import redis
 from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
-
-import json 
-import logging
-import redis
+from django.http import JsonResponse
 
 logger = logging.getLogger(__name__)
 
@@ -20,11 +20,11 @@ try:
     redis_client.ping()
 except (redis.ConnectionError, ImproperlyConfigured, Exception) as e:
     logger.error(
-        f'''[XX Rate Limit Redis Error XX]: Redis configuration error. Please check if redis is working.
+        f"""[XX Rate Limit Redis Error XX]: Redis configuration error. Please check if redis is working.
         You can ignore redis and continue to use local cache instead. 
-        Exception: {str(e)}'''
+        Exception: {str(e)}"""
     )
-    raise ImproperlyConfigured("RateLimitRedisERROR: Redis is not properly configured.") 
+    raise ImproperlyConfigured("RateLimitRedisERROR: Redis is not properly configured.")
 
 
 class TokenBucketRateLimitMiddleware:
@@ -37,8 +37,11 @@ class TokenBucketRateLimitMiddleware:
 
     bucket_size = {
         "max_tokens": 3,
-        "refill_rate": 1.0 / (20 * 1000), # 1 token per 20000 milliseconds. 3 requests per minute. 3 reqeust as burst by default. 
-    }  
+        "refill_rate": 1.0
+        / (
+            20 * 1000
+        ),  # 1 token per 20000 milliseconds. 3 requests per minute. 3 reqeust as burst by default.
+    }
 
     def __init__(self, get_response) -> None:
         self.get_response = get_response
@@ -58,8 +61,7 @@ class TokenBucketRateLimitMiddleware:
         return ip_addr
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        
-        # Just basic implementation with IP. However, Key should be unique adding other user factors. 
+        # Just basic implementation with IP. However, Key should be unique adding other user factors.
         client_ip = self.get_client_ip(request=request)
         rate_limit_key = f"api_rate_limit:{client_ip}"
 
@@ -70,8 +72,8 @@ class TokenBucketRateLimitMiddleware:
                 f"\n[XX Rate Limit Redis Error XX]: Redis connection failed. Falling bak to local app cache.\nException: {err}"
             )
             bucket = cache.get(rate_limit_key)
-            
-        curr_time = int(time() * 1000)  # in milis 
+
+        curr_time = int(time() * 1000)  # in milis
 
         if bucket is None:
             bucket = {
@@ -99,7 +101,9 @@ class TokenBucketRateLimitMiddleware:
         else:
             wait_time = (1 - bucket["tokens"]) / self.bucket_size["refill_rate"] / 1000
 
-            logger.warning(f"[XX Rate Limit Warning XX]: Rate Limit Exceed for IP: {client_ip}")
+            logger.warning(
+                f"[XX Rate Limit Warning XX]: Rate Limit Exceed for IP: {client_ip}"
+            )
             response = JsonResponse(
                 {
                     "message": "Rate Limit Exceed",

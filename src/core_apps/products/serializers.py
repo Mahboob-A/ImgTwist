@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core_apps.products.models import Category, BrandName, Product, ProductImages
+from core_apps.products.models import BrandName, Category, Product, ProductImages
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -37,17 +37,23 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["id", "name", "description", "price",
-                  "quantity", "images", "uploaded_images"]
+        fields = [
+            "id",
+            "name",
+            "description",
+            "price",
+            "quantity",
+            "images",
+            "uploaded_images",
+        ]
 
     def validate_uploaded_images(self, value):
-
-        max_size = 10 * 1024 * 1024   # 10 MB
+        max_size = 10 * 1024 * 1024  # 10 MB
         allowed_type = ["image/jpeg", "image/png", "image/gif", "image/webp"]
         errors = []
         for image in value:
             if image.size > max_size:
-                max_size_in_mb = max_size / (1024  * 1024  )
+                max_size_in_mb = max_size / (1024 * 1024)
                 image_size_in_mb = image.size / (1024 * 1024)
                 errors.append(
                     f"Image {image.name} is too large. Max size is {max_size_in_mb: .2f} MB. The Image size is {image_size_in_mb: .2f} MB."
@@ -59,8 +65,8 @@ class ProductSerializer(serializers.ModelSerializer):
         if errors:
             # print("error: ", errors)
             raise serializers.ValidationError(errors)
-        
-        return value 
+
+        return value
 
     def create(self, validated_data):
         uploaded_images = validated_data.pop("uploaded_images", [])
@@ -89,7 +95,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     """Serializers for Category"""
-    
+
     class Meta:
         model = Category
         fields = ["id", "name", "description"]
