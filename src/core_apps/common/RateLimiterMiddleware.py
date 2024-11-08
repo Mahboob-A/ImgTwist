@@ -1,12 +1,12 @@
-from time import time
-from typing import Any
-from django.http import JsonResponse
-from django.core.cache import cache
-from django.core.exceptions import ImproperlyConfigured
-
 import json
 import logging
+from time import time
+from typing import Any
+
 import redis
+from django.core.cache import cache
+from django.core.exceptions import ImproperlyConfigured
+from django.http import JsonResponse
 
 logger = logging.getLogger(__name__)
 

@@ -1,12 +1,11 @@
 from django.urls import path
 
 from core_apps.users.views import (
-    UserRegistrationAPI,
     UserLoginAPI,
     UserLogOutAPIView,
+    UserRegistrationAPI,
     UserTokenObtainPairView,
 )
-
 
 urlpatterns = [
     path(

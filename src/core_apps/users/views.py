@@ -1,19 +1,18 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.db import IntegrityError
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.exceptions import ValidationError
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
-
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
 
-from core_apps.users.serializers import UserRegistrationAPISerializer
 from core_apps.users.renderers import UserJSONRenderer
-from core_apps.users.serializers import CustomTokenObtainPairSerializer
+from core_apps.users.serializers import (
+    CustomTokenObtainPairSerializer,
+    UserRegistrationAPISerializer,
+)
 
 
 class UserRegistrationAPI(APIView):

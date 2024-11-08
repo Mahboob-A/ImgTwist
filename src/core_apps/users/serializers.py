@@ -1,7 +1,5 @@
-from django.core.validators import MinLengthValidator, MaxLengthValidator
-
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 from rest_framework import serializers
-
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from core_apps.users.models import CustomUser

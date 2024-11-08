@@ -1,27 +1,23 @@
 import logging
 
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
-
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404, render
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from rest_framework.views import APIView
 
-from core_apps.products.models import Category, BrandName, Product, ProductImages
+from core_apps.products.models import BrandName, Category, Product, ProductImages
+from core_apps.products.paginations import ProductsPageNumberPagination
+from core_apps.products.renderers import ProductJSONRenderer, ProductsJSONRenderer
 from core_apps.products.serializers import (
-    CategorySerializer,
     BrandNameSerializer,
+    CategorySerializer,
     ProductSerializer,
 )
-from core_apps.products.renderers import ProductJSONRenderer, ProductsJSONRenderer
-from core_apps.products.paginations import ProductsPageNumberPagination
-
 
 logger = logging.getLogger(__name__)
 

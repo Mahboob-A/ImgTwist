@@ -1,11 +1,11 @@
 from django.urls import path
 
 from core_apps.products.views import (
-    RetriveProductAPIView,
-    RetriveProductListAPIView,
+    CategoryAPIView,
     ProductCreateUpdateDeleteAPIView,
     ProductImageDeleteAPIView,
-    CategoryAPIView,
+    RetriveProductAPIView,
+    RetriveProductListAPIView,
 )
 
 urlpatterns = [

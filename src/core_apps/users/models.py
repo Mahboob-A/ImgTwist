@@ -1,18 +1,16 @@
-from django.db import models
+import uuid
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
-    PermissionsMixin,
     Group,
     Permission,
+    PermissionsMixin,
 )
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-
-import uuid
 
 from core_apps.users.managers import CustomUserManager
 
